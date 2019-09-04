@@ -1,25 +1,33 @@
-node {
-    stage "Preliminar verification"{
-      echo "TODO"
+pipeline {
+  stage ("Preliminar Steps"){
+    steps {
+      echo "TO_DO"
     }
+  }
 
-    stage "Checkout app" {
-        checkout([
-      $class: 'GitSCM', 
-      branches: [[name: '*/master']], 
-      doGenerateSubmoduleConfigurations: false, 
-      extensions: [
-        [$class: 'WipeWorkspace'], 
-        [$class: 'CleanBeforeCheckout']
-        ], 
-      submoduleCfg: [], 
-      userRemoteConfigs: [
-        [url: 'https://github.com/mbovo/javaspringtest.git']
-      ]
-        ])
+  stage ("Chckout app code"){
+    steps {
+      checkout([
+        $class: 'GitSCM', 
+        branches: [[name: '*/master']], 
+        doGenerateSubmoduleConfigurations: false, 
+        extensions: [
+          [$class: 'WipeWorkspace'], 
+          [$class: 'CleanBeforeCheckout']
+          ], 
+        submoduleCfg: [], 
+        userRemoteConfigs: [
+          [url: 'https://github.com/mbovo/javaspringtest.git']
+        ]
+      ])
+
     }
-    
-    stage "Build with maven" {
-      sh "mvn clean package"    
+  }
+
+  stage ("Maven build"){
+    steps{
+      sh "mvn clean package"
     }
+  }
+
 }
