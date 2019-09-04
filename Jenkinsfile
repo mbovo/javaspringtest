@@ -1,19 +1,25 @@
 node {
-    stage "Create build output"
+    stage "Preliminar verification"{
+      echo "TODO"
+    }
 
-    checkout([
-	$class: 'GitSCM', 
-	branches: [[name: '*/master']], 
-	doGenerateSubmoduleConfigurations: false, 
-	extensions: [
-		[$class: 'WipeWorkspace'], 
-		[$class: 'CleanBeforeCheckout']
-		], 
-	submoduleCfg: [], 
-	userRemoteConfigs: [
-		[url: 'https://github.com/mbovo/javaspringtest.git']
-	]
-    ])
+    stage "Checkout app" {
+        checkout([
+      $class: 'GitSCM', 
+      branches: [[name: '*/master']], 
+      doGenerateSubmoduleConfigurations: false, 
+      extensions: [
+        [$class: 'WipeWorkspace'], 
+        [$class: 'CleanBeforeCheckout']
+        ], 
+      submoduleCfg: [], 
+      userRemoteConfigs: [
+        [url: 'https://github.com/mbovo/javaspringtest.git']
+      ]
+        ])
+    }
     
-    sh "mvn clean package"    
+    stage "Build with maven" {
+      sh "mvn clean package"    
+    }
 }
