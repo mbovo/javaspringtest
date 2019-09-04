@@ -1,1 +1,1 @@
-# Test repo on Azure devops
+# Simple Java Spring Boot application
